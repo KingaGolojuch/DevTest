@@ -1,0 +1,26 @@
+<h2>Customer form</h2>
+<form [formGroup]="customerFormGroup" (ngSubmit)="Save()">
+
+    <label>Name</label>
+    <input formControlName="customerName">
+    <div *ngIf="formControls.customerName.errors">
+        <small *ngIf="formControls.customerName.errors.required">Customer name is required</small>
+        <small *ngIf="formControls.customerName.errors.minlength">Customer name must be at least 5 characters long</small>
+    </div>
+    <br>
+
+    <label>Type</label>
+    <select formControlName="customerType">
+        <option *ngFor="let customerType of customerTypes;" [value]="customerType.customerTypeId">
+            {{ customerType.name }}
+        </option>
+    </select>
+    <div *ngIf="formControls.customerType.errors">
+        <small *ngIf="formControls.customerType.errors.required">Customer type is required</small>
+    </div>
+    <br>
+
+    <input type="submit" value="Submit" [disabled]="!customerFormGroup.valid">
+</form>
+
+<a [routerLink]="['/customers']">Back</a>
